@@ -160,7 +160,8 @@ body {
 }
 
 
-.carousel-control-prev {
+/* Old Bootstrap Carousel Styles - Superseded by new Bulma-based carousel */
+/* .carousel-control-prev {
  margin-left: -50px;
  height: 300px;
  }
@@ -169,14 +170,14 @@ body {
  height: 300px;
  }
  .carousel-item {
- /* height: 234px; */
+ height: 234px;
  overflow: hidden;
- /* width: 100%; */
+ width: 100%;
  text-align: center;
  }
  .carousel-item img {
- /* width: 100%; */
- }
+ width: 100%;
+ } */
  .carousel-inner .item img {
  margin:auto;
  }
@@ -220,3 +221,148 @@ body {
     margin: auto;
     height: 400px;
  }
+
+/* Carousel Styles */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+}
+
+.carousel-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+    /* overflow: hidden; */
+    box-sizing: border-box;
+    min-height: 360px; /* ensure wrapper has a stable height during transforms */
+    align-items: stretch;
+    will-change: transform;
+}
+
+.carousel-item {
+    min-width: 100%;
+    width: 100%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 0;
+    height: 100%;
+}
+
+.carousel-header {
+    display: block;
+    padding: 8px 0;
+    text-align: center;
+}
+
+.carousel-text-condition {
+    text-align: center;
+}
+
+.carousel-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.carousel-description {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.carousel-videos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+}
+
+.video-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow: hidden;
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* preserve aspect ratio while filling available area */
+    display: block;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.video-model {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #666;
+    margin: 0;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 200;
+}
+
+.carousel-btn {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 10px 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    pointer-events: all;
+    margin: 0 5px;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #717171;
+}
+
+@media (max-width: 768px) {
+    .carousel-videos {
+        grid-template-columns: 1fr;
+    }
+}

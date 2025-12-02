@@ -4,6 +4,96 @@ var INTERP_BASE = "./static/interpolation/stacked";
 var NUM_INTERP_FRAMES = 240;
 
 var interp_images = [];
+
+// ===== Carousel Functionality - Global scope =====
+var carouselCurrentSlide = 1;
+var carouselAutoplayInterval = null;
+var CAROUSEL_AUTOPLAY_INTERVAL = 5000; // 5秒自动轮播
+
+window.changeCarouselSlide = function(n) {
+    console.log('changeCarouselSlide called with:', n);
+    if (carouselAutoplayInterval) {
+        clearInterval(carouselAutoplayInterval);
+    }
+    carouselCurrentSlide += n;
+    showCarouselSlide(carouselCurrentSlide);
+    startCarouselAutoplay();
+}
+
+window.currentCarouselSlide = function(n) {
+    console.log('currentCarouselSlide called with:', n);
+    if (carouselAutoplayInterval) {
+        clearInterval(carouselAutoplayInterval);
+    }
+    carouselCurrentSlide = n;
+    showCarouselSlide(carouselCurrentSlide);
+    startCarouselAutoplay();
+}
+
+function showCarouselSlide(n) {
+    var slides = document.querySelectorAll('.carousel-item');
+    var dots = document.querySelectorAll('.dot');
+    var totalSlides = slides.length;
+    
+    console.log('showCarouselSlide - n:', n, 'totalSlides:', totalSlides);
+    
+    if (totalSlides === 0) {
+        console.warn('No carousel items found');
+        return;
+    }
+    
+    if (n > totalSlides) {
+        carouselCurrentSlide = 1;
+    } else if (n < 1) {
+        carouselCurrentSlide = totalSlides;
+    } else {
+        carouselCurrentSlide = n;
+    }
+    
+    var wrapper = document.querySelector('.carousel-wrapper');
+    if (wrapper) {
+        var offset = -(carouselCurrentSlide - 1) * 100;
+        wrapper.style.transform = 'translateX(' + offset + '%)';
+        wrapper.style.overflow = '';
+        console.log('Transform applied:', 'translateX(' + offset + '%)');
+    } else {
+        console.error('carousel-wrapper not found');
+    }
+    
+    dots.forEach(function(dot, index) {
+        if (index === carouselCurrentSlide - 1) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+function startCarouselAutoplay() {
+    carouselAutoplayInterval = setInterval(function() {
+        var slides = document.querySelectorAll('.carousel-item');
+        var totalSlides = slides.length;
+        
+        if (totalSlides === 0) return;
+        
+        carouselCurrentSlide++;
+        if (carouselCurrentSlide > totalSlides) {
+            carouselCurrentSlide = 1;
+        }
+        showCarouselSlide(carouselCurrentSlide);
+    }, CAROUSEL_AUTOPLAY_INTERVAL);
+}
+
+function initCarousel() {
+    var slides = document.querySelectorAll('.carousel-item');
+    console.log('Initializing carousel, found', slides.length, 'slides');
+    if (slides.length > 0) {
+        showCarouselSlide(1);
+        startCarouselAutoplay();
+    }
+}
+// ===== End Carousel Functionality =====
+
 function preloadInterpolationImages() {
   for (var i = 0; i < NUM_INTERP_FRAMES; i++) {
     var path = INTERP_BASE + '/' + String(i).padStart(6, '0') + '.jpg';
@@ -74,5 +164,8 @@ $(document).ready(function() {
     $('#interpolation-slider').prop('max', NUM_INTERP_FRAMES - 1);
 
     bulmaSlider.attach();
+
+    // Initialize carousel
+    initCarousel();
 
 })

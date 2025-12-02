@@ -174,8 +174,106 @@
             <div class="column is-full-width">
                 <div class="content has-text-justified">
                     <p><span style="font-family:Papyrus, Fantasy , sans-serif; font-size: x-large;"><b>TL;DR:</b></span> <span style="font-family:Arial, Helvetica, sans-serif, serif; font-size: large;">We propose ReaDe, a universal, model-agnostic interpreter that converts raw instructions into precise, actionable specifications for downstream video generators.</span> </p>
-                    <img class="columns is-centered has-text-centered" src="./static/images/teaser1.png" alt="Teaser" width="85%" style="display: block; margin:0 auto">
-                </div>
+                    
+                    <!-- Carousel Section -->
+                    <div class="carousel-container" style="margin: 40px 0; position: relative; z-index: 10;">
+                        <div class="carousel-wrapper" style="overflow: hidden;">
+                            <!-- Carousel Item 1 -->
+                            <div class="carousel-item">
+                                <div class="carousel-header">
+                                    <div class="carousel-text-condition">
+                                        <h3 class="carousel-title">Example 1 <span style="font-family:sans-serif; font-size: x-large;"><b>[Image + Text -> Video]</b></span></h3>
+                                        <p class="carousel-description"> A video showing what the animal growing up looks like in the given image</p>
+                                    </div>
+                                    <div class="carousel-image-condition">
+                                        <img src="./static/images/example1.png" alt="Condition Image" width="150px" height="150px" style="object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+                                    </div>
+                                </div>
+                                <div class="carousel-videos">
+                                    <div class="video-container">
+                                        <video width="100%" autoplay muted loop>
+                                            <source src="./static/videos/kling_ori.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-model">Model: Kiling</p>
+                                    </div>
+                                    <div class="video-container">
+                                        <video width="100%" autoplay muted loop>
+                                            <source src="./static/videos/kling_ori.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-model">Model: Kiling + ReaDe</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Carousel Item 2 -->
+                            <div class="carousel-item">
+                                <div class="carousel-header">
+                                    <div class="carousel-text-condition">
+                                        <h3 class="carousel-title">Example 2</h3>
+                                        <p class="carousel-description">A cat jumping gracefully over a fence in a green garden</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-videos">
+                                    <div class="video-container">
+                                        <video width="100%" autoplay muted loop>
+                                            <source src="./static/videos/kling_ori.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-model">Model: Kiling</p>
+                                    </div>
+                                    <div class="video-container">
+                                        <video width="100%" autoplay muted loop>
+                                            <source src="./static/videos/kling_ori.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-model">Model: Kiling + ReaDe</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Carousel Item 3 -->
+                            <div class="carousel-item">
+                                <div class="carousel-header">
+                                    <div class="carousel-text-condition">
+                                        <h3 class="carousel-title">Example 3</h3>
+                                        <p class="carousel-description">A bicycle moving through a crowded city street during sunset</p>
+                                    </div>
+                                </div>
+                                <div class="carousel-videos">
+                                    <div class="video-container">
+                                        <video width="100%" autoplay muted loop>
+                                            <source src="./static/videos/kling_ori.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-model">Model: Kiling</p>
+                                    </div>
+                                    <div class="video-container">
+                                        <video width="100%" autoplay muted loop>
+                                            <source src="./static/videos/kling_ori.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="video-model">Model: Kiling + ReaDe</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="carousel-nav">
+                            <button class="carousel-btn prev-btn" onclick="changeCarouselSlide(-1)">&#10094;</button>
+                            <button class="carousel-btn next-btn" onclick="changeCarouselSlide(1)">&#10095;</button>
+                        </div>
+
+                        <!-- Dots Indicator -->
+                        <div class="carousel-dots">
+                            <span class="dot" onclick="currentCarouselSlide(1)"></span>
+                            <span class="dot" onclick="currentCarouselSlide(2)"></span>
+                            <span class="dot" onclick="currentCarouselSlide(3)"></span>
+                        </div>
+                    </div><!-- end carousel-container -->
+                </div><!-- end content -->
             </div>
         </div>
     </div>
