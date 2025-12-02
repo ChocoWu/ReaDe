@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="We propose ReaDe, a universal, model-agnostic interpreter that converts raw instructions into precise, actionable specifications for downstream video generators.">
+    <meta name="keywords" content="Video Generation, Controllable Video Generation, Multimodal LLM, Video Captioning, Intention Interpreting, Video Generation from Text, Video Generation from Image, Video Generation from Video, Video Generation from Motion, Video Generation from Camera Pose">
+    <meta property="og:title" content="✨ReaDe: A Reason-then-Describe Instruction Interpreter for Controllable Video Generation">
+    <meta property="og:description" content="✈️We propose ReaDe, a universal, model-agnostic interpreter that converts raw instructions into precise, actionable specifications for downstream video generators.">
+    <meta property="og:image" content="static/images/logo.png">
+    <meta property="og:url" content="https://sqwu.top/ReaDe/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ReaDe">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="✨ReaDe: A Reason-then-Describe Instruction Interpreter for Controllable Video Generation">
+    <meta name="twitter:description" content="✈️We propose ReaDe, a universal, model-agnostic interpreter that converts raw instructions into precise, actionable specifications for downstream video generators.">
+    <meta name="twitter:image" content="static/images/logo.png">
+    <meta name="twitter:site" content="@SQWu_Tori">
+    <meta name="twitter:creator" content="@SQWu_Tori">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="./static/images/logo.png">
+    <title>ReaDe</title>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-PYVRSFMDRL');
+    </script>
+
+    <link href="https://fonts.cdnfonts.com/css/caveat" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+          rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+
+    <link rel="stylesheet" href="./static/css/index-gradio.css">
+    <link rel="stylesheet" href="./static/css/live_theme.css">
+
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/caveat');
+    </style>
+
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <style>
+         .scroll-container {
+            height: 600px; /* 设置可视高度 */
+            overflow-y: auto;
+            /* border: 1px solid #ccc; */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* 让列宽固定 */
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        thead th {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1;
+        }
+        .col1 { width: 300px; }
+        .col2 { width: 200px; }
+        .col3 { width: 200px; }
+        .col4 { width: 200px; }
+        .col5 { width: 700px; }
+    </style> 
+    
+</head>
+<body>
+
+
+<section class="hero">
+    <div class="hero-body">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column has-text-centered">
+                    <img class="columns is-centered has-text-centered" src="./static/images/logo.png" alt="Teaser" width="40%"
+                                style="display: block; margin:0 auto">
+                        <br>
+                    <h1 class="title is-2 publication-title">A Reason-then-Describe Instruction Interpreter for Controllable Video Generation</h1>
+                    
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block">
+                            <a href="https://chocowu.github.io/">Shengqiong Wu</a><sup>1,2*</sup></span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://ywcmaike.github.io/">Weicai Ye</a><sup>1, &#9993;</sup></span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=COdftTMAAAAJ">Yuanxing Zhang</a><sup>1, &#9993;</sup></span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://sqwu.top/Any2Cap/">Jiahao Wang</a><sup>1</sup> </span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://liuquande.github.io/">Quande Liu</a><sup>1</sup> </span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://xinntao.github.io/">Xintao Wang</a><sup>1</sup> </span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=P6MraaYAAAAJ">Pengfei Wan</a><sup>1</sup></span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://scholar.google.com/citations?user=PXO4ygEAAAAJ">Kun Gai</a><sup>1</sup> </span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://haofei.vip/">Hao Fei</a><sup>2, &#9993;</sup> </span> &nbsp;
+                        <span class="author-block">
+                            <a href="https://www.chuatatseng.com/">Tat-Seng Chua</a><sup>2</sup></span> &nbsp;
+                    </div>
+                    <div class="is-size-5 publication-authors" style="margin-top: 10px;">
+                        <span class="author-block"><b style="color:#f68946; font-weight:normal">▶ </b><sup>1</sup>Kuaishou Technology</span> &nbsp;
+                        <span class="author-block"><b
+                                style="color:#008AD7; font-weight:normal">▶ </b><sup>2</sup>National University of Singapore</span> &nbsp;
+                    </div>
+
+                    <div class="is-size-5 publication-authors">
+                        <span class="author-block" style="font-size: 15px;">(<sup>*</sup>Work done during internship at Kuaishou Technology. </span>
+                        <!-- <span class="author-block" style="font-size: 15px;"><sup>\(\dagger\)</sup>Project Lead. </span> -->
+                        <span class="author-block" style="font-size: 15px;"><sup>&#9993;</sup>Correspondence)</span>
+                    </div>
+
+                    <div class="column has-text-centered">
+                        <div class="publication-links">
+                            <!-- PDF Link. -->
+                            <span class="link-block">
+                                <a href="https://arxiv.org/abs/2511.20563" class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon"> <i class="fas fa-file-pdf"></i> </span>
+                                    <span>Paper</span>
+                                </a>
+                            </span>
+                            <!-- <span class="link-block">
+                                <a href="https://huggingface.co/papers/2511.20563" class="external-link button is-normal is-rounded is-dark">
+                                    <span class="icon"> <img src="static/images/hf.png"></span>
+                                    <span>Code</span>
+                                </a>
+                            </span> -->
+                            <span class="link-block">
+                                <a href="https://github.com/ChocoWu/ReaDe"
+                                class="external-link button is-normal is-rounded is-dark">
+                                <span class="icon">
+                                    <i class="fab fa-github"></i>
+                                </span>
+                                <span>Code</span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+                <div class="content has-text-justified">
+                    <p><span style="font-family:Papyrus, Fantasy , sans-serif; font-size: x-large;"><b>TL;DR:</b></span> <span style="font-family:Arial, Helvetica, sans-serif, serif; font-size: large;">We propose ReaDe, a universal, model-agnostic interpreter that converts raw instructions into precise, actionable specifications for downstream video generators.</span> </p>
+                    <img class="columns is-centered has-text-centered" src="./static/images/teaser1.png" alt="Teaser" width="85%" style="display: block; margin:0 auto">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="section" style="background-color: rgb(245,245,245);">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-2">Abstract</h2>
+                <div class="content has-text-justified">
+                    <p  class="content has-text-justified">
+                        Diffusion Transformers have significantly improved video fidelity and temporal coherence; however, practical controllability remains limited. Concise, ambiguous, and compositionally complex user inputs contrast with the detailed prompts used in training, yielding an intent–output mismatch. We propose <b><code>ReaDe</code></b>, a universal, model-agnostic interpreter that converts raw instructions into precise, actionable specifications for downstream video generators. ReaDe follows a reason-then-describe paradigm: it first analyzes the user request to identify core requirements and resolve ambiguities, then produces detailed guidance that enables faithful, controllable generation. We train ReaDe via a two-stage optimization: (i) reasoning-augmented supervision imparts analytic parsing with stepwise traces and dense captions; (ii) a multi-dimensional reward assigner enables stable, feedback-driven refinement for natural-style captions. Experiments across singleand multi-condition scenarios show consistent gains in instruction fidelity, caption accuracy, and downstream video quality, with strong generalization to reasoningintensive and unseen inputs. ReaDe offers a practical route to aligning controllable video generation with accurately interpreted user intent.
+                    </p>
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="section">
+    <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+                <h2 class="title is-2">Method</h2>
+                <div class="content has-text-justified">
+                    <p  class="content has-text-justified">
+                         ReaDe is a multimodal LLM initialized from Qwen2.5-Omni. Various user-provided conditions are processed by their corresponding encoders (text, visual, video, audio, and camera), and the extracted features are integrated by the Qwen-LLM to perform reasoning. The model outputs a deeply interpreted dense prompt for the downstream video generator. 
+                    </p>
+                    <div class="content has-text-justified" id="fig1"> 
+                        <img class="columns is-centered has-text-centered" src="./static/images/model.png" alt="Teaser" width="85%"
+                                style="display: block; margin:0 auto">
+                        <br>
+                        <figcaption>
+                            <p style="text-align: left;">
+                                <font color="061E61">
+                                    <b>Figure 1: </b> Overall illustration of the multimodal encoding framework.
+                                </font>
+                            </p>
+                        </figcaption>
+                    </div>
+                    <p  class="content has-text-justified">
+                         ReaDe is a multimodal LLM initialized from Qwen2.5-Omni. Various user-provided conditions are processed by their corresponding encoders (text, visual, video, audio, and camera), and the extracted features are integrated by the Qwen-LLM to perform reasoning. The model outputs a deeply interpreted dense prompt for the downstream video generator. 
+                    </p>
+                    <div class="content has-text-justified" id="fig1"> 
+                        <img class="columns is-centered has-text-centered" src="./static/images/intro.png" alt="Teaser" width="85%"
+                                style="display: block; margin:0 auto">
+                        <br>
+                        <figcaption>
+                            <p style="text-align: left;">
+                                <font color="061E61">
+                                    <b>Figure 2: </b>Text-only prompt optimizers and data-hungry multimodal methods (e.g., Any2Caption remain brittle, performing poorly on reasoning-intensive and unseen instructions.
+                                </font>
+                            </p>
+                        </figcaption>
+                    </div>
+
+                    <p class="content has-text-justified">
+                       Inspired by Chain-of-Thought (CoT), ReaDe emulates a human-like reasoning process that systematically interprets the initial prompt into its core requirements, resolving cross-modal misalignments and ambiguities, and enriches it with explicit details to enable faithful and high-quality video generation. Technically, we propose a <b>multi-dimensional feedback reinforcement learning framework</b> comprising two stages:
+                       <ul>
+                            <li><b>Stage 1</b>, the interpreter is equipped with initial analytic parsing capabilities for instruction refinement, utilizing curated, reasoning-augmented data that pairs user inputs with stepwise reasoning traces and gold dense, detailed captions.</li>
+                            <li><b>Stage 2</b>, we design a multi-dimensional feedback reward assigner to overcome the intrinsic difficulty of evaluating naturally styled captions, enabling stable feedback-driven optimization that steers the model to infer user intent more accurately and generate detailed captions suitable for controllable video generation. </li>
+                       </ul>
+                    </p>
+                    <div class="content has-text-justified" id="fig1"> 
+                        <img class="columns is-centered has-text-centered" src="./static/images/learning.png" alt="Teaser" width="90%"
+                                style="display: block; margin:0 auto">
+                        <br>
+                        <figcaption>
+                            <p style="text-align: left;">
+                                <font color="061E61">
+                                    <b>Figure 3: </b>Overview of the training framework for the Instruction Interpreter (ReaDe). (1) CoTguided reasoning initialization via supervised fine-tuning on instruction–thinking–answer triples, and (2) reinforcement learning with a multi-dimensional reward assigner and optional video-quality feedback from a frozen video generator.
+                                </font>
+                            </p>
+                        </figcaption>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- <section class="section">
+    <div class="container is-max-desktop">
+
+        <div class="columns is-centered has-text-centered">
+            <h2 class="title is-2">Visulizations</h2>
+            <br>
+        </div>
+
+        
+    </div>
+</section> -->
+
+
+<section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@article{wu2025reason,
+  title={A Reason-then-Describe Instruction Interpreter for Controllable Video Generation},
+  author={Wu, Shengqiong and Ye, Weicai and Zhang, Yuanxing and Wang, Jiahao and Liu, Quande and Wang, Xintao and Wan, Pengfei and Gai, Kun and Fei, Hao and Chua, Tat-Seng},
+  journal={arXiv preprint arXiv:2511.20563},
+  year={2025}
+}
+</code></pre>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-8">
+                <div class="content">
+                    <p style="text-align: center;">
+                        The webpage is built based on <a href="https://next-gpt.github.io/">NExT-GPT</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+</body>
+</html>
